@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Acey Deucey</title>
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style">
+</head>
+<body>
+  <main id="playground">
+
+    <div id="cards">
+      <div id="card_low" class="card"></div>
+      <div id="question" class="card"></div>
+      <div id="card_high" class="card"></div>
+    </div>
+
+    <div id="bankrollContainer">Bankroll : <span id="bankroll"></span></div>
+
+    <form id="potContainer">
+      <label for="pot">Mise : </label>
+      <input type="text" name="pot" id="pot">
+      <button type="submit">Valider</button>
+    </form>
+
+    <div id="result">
+      <p id="resultMessage"></p>
+      <button type="button" id="newRound">Rejouer</button>
+    </div>
+  </main>
+
+  <script src="scripts/app.js"></script>
+</body>
+</html>

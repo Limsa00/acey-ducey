@@ -1,0 +1,61 @@
+main .card {
+  background-image: url('../img/cards.gif');
+  background-position: 0 118px;
+  color: transparent; /* just to hide the text ! */
+  transition: transform ease 0.5s;
+  width: 81px;
+  height: 117px;
+  padding: 0;
+}
+
+.card.val-2 {
+  background-position: 0 0;
+}
+
+.card.val-3 {
+  background-position: -81px 0;
+}
+
+.card.val-4 {
+  background-position: -162px 0;
+}
+
+.card.val-5 {
+  background-position: -243px 0;
+}
+
+.card.val-6 {
+  background-position: -324px 0;
+}
+
+.card.val-7 {
+  background-position: -405px 0;
+}
+
+.card.val-8 {
+  background-position: -486px 0;
+}
+
+.card.val-9 {
+  background-position: -567px 0;
+}
+
+.card.val-10 {
+  background-position: -648px 0;
+}
+
+.card.val-Valet {
+  background-position: -729px 0;
+}
+
+.card.val-Dame {
+  background-position: -810px 0;
+}
+
+.card.val-Roi {
+  background-position: -891px 0;
+}
+
+.card.val-As {
+  background-position: -972px 0;
+}
