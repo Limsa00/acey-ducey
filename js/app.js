@@ -96,15 +96,22 @@ var app = {
   handleInputSubmit: function (event) {
     // Cette fonction sera déclenchée par la soumission d'un formulaire. Enfin... quand tu l'auras branchée sur la soumission du formulaire 😈
     // Il faut donc commencer par empêcher le rechargement de la page (qui est le comportement par défaut de ce genre d'event).
-
+    event.preventDefault();
 
     // Ensuite, récupère la valeur de l'input qui porte l'id "pot". C'est la mise du joueur. Je me demande si on l'a pas déjà quelque part, cet élément...
-
+    let mise = parseInt(app.potField.value);
     
     // Il va falloir faire une série de vérification : 
     // - la valeur de la mise doit être un nombre entier
     // - la valeur de la mise doit être nulle ou positive.
     // - la mise ne peut pas être supérieur aux fonds du joueur (qu'on appelle souvent "bankroll")
+    if (isNaN(mise)) {
+      alert('Merci de renseigner un nombre!');
+    } else if (mise < 0) {
+      alert('La mise doit être positive !');
+    } else if ( mise > app.bankroll) {
+      alert('La mise ne peut pas être plus importante que la banque !');
+    }
 
     // Dans chaque cas d'erreur, affiche une alerte avec un message cohérent.
     
@@ -112,6 +119,9 @@ var app = {
     // Si tout va bien (et uniquement dans ce cas), il faut lancer la fonction qui termine le round (codée à l'étape 5)
     // As-tu remarqué la variable passée en argument à cette fonction ? Fais gaffe si tu as décidé de nommer la tienne différemment, il va falloir en renommer une des deux
     // app.endCurrentRound(potValue);
+    else {
+      app.endCurrendRound(mise);
+    }
   },
 
 
@@ -126,6 +136,9 @@ var app = {
 
     // On accroche la fonction "newRound" au bouton "newRound".
     document.getElementById('newRound').addEventListener('click', app.newRound);
+
+    // étape 4: on branche le submit du formulaire
+    app.pot.addEventListener('submit', app.handleInputSubmit );
 
     // Enfin, on lance le premier round !
     app.newRound();
