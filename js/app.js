@@ -72,7 +72,12 @@ var app = {
     // Lors de la première partie, le pot est déjà affiché et vide
     // Mais quand la partie recommence, il faut réafficher le pot et vider la valeur saisie dans le champ pot
     // Sinon, il reste caché et on se retrouve avec une interface sans aucune action possible
-
+    if (app.bankroll > 0) {
+      app.potField.value = '';
+      app.pot.style.display = 'block';
+      // on remet aussi la carte du milieu à zero
+      app.midCard.className = 'card';
+    }
   },
 
   updateCards: function () {
@@ -83,11 +88,11 @@ var app = {
 
     // La vraie valeur à mettre ici, c'est la plus basse des 2 valeurs tirées juste avant
     app.lowCard.textContent = app.values.min;
-    app.lowCard.classList.add(`val-${app.cards[app.values.min]}`);
+    app.lowCard.className = `card val-${app.cards[app.values.min]}`;
 
     // Et ici, la plus haute
     app.highCard.textContent = app.values.max;
-    app.highCard.classList.add(`val-${app.cards[app.values.max]}`);
+    app.highCard.className = `card val-${app.cards[app.values.max]}`;
 
     // Pour la carte du milieu, on va écrire "?" dedans (il faut attendre que le joueur mise pour tirer cette carte)
     app.midCard.textContent = "?";
@@ -120,11 +125,40 @@ var app = {
     // As-tu remarqué la variable passée en argument à cette fonction ? Fais gaffe si tu as décidé de nommer la tienne différemment, il va falloir en renommer une des deux
     // app.endCurrentRound(potValue);
     else {
-      app.endCurrendRound(mise);
+      app.endCurrentRound(mise);
     }
   },
 
+  // étape 5 : fin du round
+  endCurrentRound: (mise) => {
+    // Générer aléatoirement l'indice de la 3ème carte.
+    let midValue = app.getRandomNumber(0,12);
 
+    // Comparer les cartes :
+    //   Si la 3ème carte est supérieur à la carte basse ET inférieure à la carte haute, le joueur gagne.
+    //   Sinon, le joueur perd.
+    let playerWin = (midValue > app.values.min && midValue < app.values.max);
+
+    // Dans tous les cas, il faut mettre à jour le bankroll (juste la variable, pas son affichage dans le DOM)
+    if (playerWin) {
+      app.bankroll += mise*2;
+    } else {
+      app.bankroll -= mise;
+    }
+
+    // Puis faire une mise à jour visuelle :
+    // Afficher la valeur de la 3ème carte.
+    app.midCard.className = `card val-${app.cards[midValue]}`;
+    // Afficher un message "gagné" ou "perdu", tout en cachant le formulaire de mise (une fonction existe déjà pour cette tâche).
+    if (playerWin) {
+      app.showResults('Gagné !');
+    } else {
+      app.showResults('Perdu !');
+    }
+
+    // Mettre à jour la valeur du bankroll dans le DOM (pour ça aussi, une fonction existe déjà).
+    app.showBankRoll();
+  },
 
   // Cette fonction est fournie, mais il va probablement falloir la modifier...
   init: function () {
