@@ -52,7 +52,7 @@ var app = {
 
   bankroll: 100,
 
-  cards: null,
+  cards: [2,3,4,5,6,7,8,9,10,'Valet','Dame','Roi','As'],
 
   newRound: function () {
     // En premier lieu, il faut tirer 2 nombres au hasard.
@@ -66,6 +66,7 @@ var app = {
     app.updateCards();
 
     // Pour finir, il faut masquer l'élément résultat
+    app.result.style.display = 'none';
     
     // CE QUI SUIT NE S'APPLIQUE QUE SI TU EN ES À L'ÉTAPE 5
     // Lors de la première partie, le pot est déjà affiché et vide
@@ -81,10 +82,12 @@ var app = {
     // Le style, ça viendra plus tard : l'essentiel, c'est que ça fonctionne 👌
 
     // La vraie valeur à mettre ici, c'est la plus basse des 2 valeurs tirées juste avant
-    app.lowCard.textContent = "¯\\_(ツ)_/¯";
+    app.lowCard.textContent = app.values.min;
+    app.lowCard.classList.add(`val-${app.cards[app.values.min]}`);
 
     // Et ici, la plus haute
-    app.highCard.textContent = "¯\\_(ツ)_/¯";
+    app.highCard.textContent = app.values.max;
+    app.highCard.classList.add(`val-${app.cards[app.values.max]}`);
 
     // Pour la carte du milieu, on va écrire "?" dedans (il faut attendre que le joueur mise pour tirer cette carte)
     app.midCard.textContent = "?";
