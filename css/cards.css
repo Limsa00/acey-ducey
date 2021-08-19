@@ -59,3 +59,8 @@ main .card {
 .card.val-As {
   background-position: -972px 0;
 }
+
+/*Bonus : une classe pour gérer l'animation */
+.animatedCard {
+  transform: rotateY(90deg);
+}

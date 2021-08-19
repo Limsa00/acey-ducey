@@ -148,8 +148,12 @@ var app = {
 
     // Puis faire une mise à jour visuelle :
     // Afficher la valeur de la 3ème carte.
-    app.midCard.className = `card val-${app.cards[midValue]}`;
-    // Afficher un message "gagné" ou "perdu", tout en cachant le formulaire de mise (une fonction existe déjà pour cette tâche).
+    app.midCard.className = 'card animatedCard';
+
+    setTimeout( () => {
+      app.midCard.className = `card val-${app.cards[midValue]}`;
+      }, 250);    // Afficher un message "gagné" ou "perdu", tout en cachant le formulaire de mise (une fonction existe déjà pour cette tâche).
+
     if (playerWin) {
       app.showResults('Gagné !');
     } else {
